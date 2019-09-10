@@ -1,7 +1,7 @@
 --Validar el nivel de aislamiento en nuestrar bases de datos
 SELECT name, snapshot_isolation_state, is_read_committed_snapshot_on FROM sys.databases;
 
---Cambiamos el nivel de aislamiento según sea el caso
+--Cambiamos el nivel de aislamiento segÃºn sea el caso
 SET TRANSACTION ISOLATION LEVEL REPEATABLE READ;  
 GO  
 BEGIN TRANSACTION;  
