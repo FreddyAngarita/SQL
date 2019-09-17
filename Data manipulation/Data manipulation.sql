@@ -18,7 +18,7 @@ BEGIN
 END
 GO
 --Obtenemos el resultado de dos consultas diferentes
---Se podr·n leer los atributos que queramos
+--Se podr√°n leer los atributos que queramos
 EXECUTE getItemHoldings
 
 
