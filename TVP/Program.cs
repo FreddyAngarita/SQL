@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 namespace TableValueParameter
@@ -12,13 +12,27 @@ namespace TableValueParameter
 
             {
                 string cs = "Data Source=DESKTOP-O3RV5AC;Initial Catalog=WideWorldImporters; Integrated Security = True";
+                
+                DataTable dt = new DataTable("TableToInsert");
+                dt.Columns.Add("StockItemTransactionID", typeof(int));
+                dt.Columns.Add("StockItemID", typeof(int));
+                dt.Columns.Add("TransactionTypeID", typeof(int));
+                dt.Columns.Add("CustomerID", typeof(int));
+                dt.Columns.Add("InvoiceID", typeof(int));
+                dt.Columns.Add("SupplierID", typeof(int));
+                dt.Columns.Add("PurchaseOrderID", typeof(int));
+                dt.Columns.Add("TransactionOccurredWhen", typeof(DateTime));
+                dt.Columns.Add("Quantity", typeof(decimal));
+                dt.Columns.Add("LastEditedBy", typeof(int));
+                dt.Columns.Add("LastEditedWhen", typeof(DateTime));
+
                 using (SqlConnection con = new SqlConnection(cs))
 
 
                 {
+                    
                     con.Open();
-                    // First print the rows in the table, if any.
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM Warehouse.StockItemTransactions", con);
+                    SqlCommand cmd = new SqlCommand("EXECUTE GetTransaction", con);
                     SqlDataReader rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
@@ -28,22 +42,12 @@ namespace TableValueParameter
                             rdr["Quantity"], rdr["LastEditedBy"], rdr["LastEditedWhen"]);
 
                     rdr.Close();
-                    // Now create a local datatable, this will be used as argument to the sproc
-                    DataTable dt = new DataTable("TableToInsert");
-                    dt.Columns.Add("StockItemTransactionID", typeof(int));
-                    dt.Columns.Add("StockItemID", typeof(int));
-                    dt.Columns.Add("TransactionTypeID", typeof(int));
-                    dt.Columns.Add("CustomerID", typeof(int));
-                    dt.Columns.Add("InvoiceID", typeof(int));
-                    dt.Columns.Add("SupplierID", typeof(int));
-                    dt.Columns.Add("PurchaseOrderID", typeof(int));
-                    dt.Columns.Add("TransactionOccurredWhen", typeof(DateTime));
-                    dt.Columns.Add("Quantity", typeof(decimal));
-                    dt.Columns.Add("LastEditedBy", typeof(int));
-                    dt.Columns.Add("LastEditedWhen", typeof(DateTime));
-                    // Insert some rows.
-                    dt.Rows.Add(new object[] {29123466, 222, 10, null, null, null, null, DateTime.Now, 12, 2, DateTime.Now});
-                    // Create a parameter, set it to be the datatable, then use it as argument for the stored procedure.
+                    
+                    
+
+                    // Insertar algunas filas.
+                    dt.Rows.Add(new object[] {29123468, 222, 10, null, null, null, null, DateTime.Now, 12, 2, DateTime.Now});
+                    // Creamos el parametro
                     SqlParameter tvpParam = new SqlParameter();
                     tvpParam.ParameterName = "@TVP";
                     tvpParam.Value = dt;
@@ -55,8 +59,6 @@ namespace TableValueParameter
                     tvpcmd.Parameters.Add(tvpParam);
                     tvpcmd.ExecuteNonQuery();
 
-                    // And rerun the first query to show rows, should show the inserted rows.
-                    Console.WriteLine("\nRun SELECT * again, new rows should be displayed");
                     rdr = cmd.ExecuteReader();
 
                     while (rdr.Read())
