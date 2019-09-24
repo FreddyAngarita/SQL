@@ -12,11 +12,14 @@ namespace ActiveDirectory
             {
                 IntPtr accountToken = WindowsIdentity.GetCurrent().Token;
                 WindowsIdentity windowsIdentity = new WindowsIdentity(accountToken);
-                Console.WriteLine(windowsIdentity.Name);
                 return windowsIdentity.Name;
             }
         }
 
-
+        static void Main(string[] args)
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            Console.WriteLine(userName);
+        }
     }
 }
