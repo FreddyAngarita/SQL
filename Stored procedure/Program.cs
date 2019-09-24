@@ -1,8 +1,8 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace sql
+namespace Sql
 {
     class Program
     {
@@ -16,7 +16,16 @@ namespace sql
                 {
                     con.Open();
                     //Ejecutar procedimiento almacenado desde C#
-                    SqlCommand cmd = new SqlCommand("EXECUTE SaleStockHoldingUpdates2 2998452,80, 10, 5", con);
+
+                    SqlCommand cmd = new SqlCommand("EXECUTE dbo.SaleStockHoldingUpdates2 @StockItemTransactionID,@ItemId, @TransactionTypeID, @Quantity", con);
+                    cmd.Parameters.AddWithValue("@StockItemTransactionID", 29984523);
+                    cmd.Parameters.AddWithValue("@ItemId", 82);
+                    cmd.Parameters.AddWithValue("@TransactionTypeID", 10);
+                    cmd.Parameters.AddWithValue("@Quantity", 6);
+
+
+
+
                     SqlDataReader rdr = cmd.ExecuteReader();
                     con.Close();
                 }
@@ -27,8 +36,8 @@ namespace sql
             }
         }
 
-        
 
-        
+
+
     }
 }
