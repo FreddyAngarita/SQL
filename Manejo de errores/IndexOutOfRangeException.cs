@@ -1,5 +1,6 @@
 using System;
 
+
 namespace IndexOutOfRangeException
 {
     class Program
@@ -29,18 +30,37 @@ namespace IndexOutOfRangeException
                 Console.Write("{0}    ", values.GetValue(ctr));
         }
 
+        static double safeDivision(double x, double y)
+        {
+            if (y == 0)
+                throw new System.DivideByZeroException();
+            return x / y;
+        }
+
+
         static void Main(string[] args)
         {
+
+            double a = 98, b = 0;
+            double result = 0;
             try
             {
-                test1();//Como el primer método genera excepcion, no se ejecuta el segundo método
-                test2();
+                safeDivision(a, b); //Como el primer método genera excepcion, no se ejecuta el segundo método
+                Console.WriteLine("{0} divided by {1} = {2}", a, b, result);
+                test1();
+
             }
-            catch (Exception ex)
+            //Los bloques catch deben ordenarse siempre de más específico a menos específico
+            catch (DivideByZeroException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            catch (System.IndexOutOfRangeException ex2)
             {
                 //Mostramos la excepción y el número de la linea dónde se produjo la excepción
-                Console.WriteLine(ex.Message + ex.StackTrace);
+                Console.WriteLine(ex2.Message + ex2.StackTrace);
             }
+
 
 
 
