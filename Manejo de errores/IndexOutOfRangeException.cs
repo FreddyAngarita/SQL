@@ -33,7 +33,7 @@ namespace IndexOutOfRangeException
         {
             try
             {
-                test1();//Como el primer método genera error, no se ejecuta el segundo método
+                test1();//Como el primer método genera excepcion, no se ejecuta el segundo método
                 test2();
             }
             catch (Exception ex)
