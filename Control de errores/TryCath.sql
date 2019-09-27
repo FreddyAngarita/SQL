@@ -43,7 +43,7 @@ GO
 -- cuando haya una violación de constraint.   
 SET XACT_ABORT ON;
 GO
-
+------------------------------------------------------
 --Ejecutamos esta transacción
 BEGIN TRY  
     BEGIN TRANSACTION;  
