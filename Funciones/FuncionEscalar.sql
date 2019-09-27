@@ -19,7 +19,7 @@ SELECT OBJECTPROPERTY(OBJECT_ID('dbo.EndOfPreviousMonth'),'IsDeterministic');
 GO
 --------------------------------------------------------------------
 --Funcion escalar ODBC
-CREATE FUNCTION ODBCudf  
+CREATE FUNCTION dbo.ODBCudf  
     (  
     @string_exp nvarchar(4000)  
     )  
