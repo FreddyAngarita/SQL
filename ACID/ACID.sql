@@ -1,5 +1,4 @@
 -- =============================================
--- Author:		<Freddy Angarita,Juan Camilo Urrego Serna>
 -- Description:	<Description:	>
 -- =============================================
 --Creamos un procedimimiento almacenado para actualizar el stock después de una venta
@@ -54,7 +53,8 @@ BEGIN
 		--Si alguna de las 3 transacciones falla, no se ejecuta ninguna
 	END TRY
 		BEGIN CATCH
-			ROLLBACK TRANSACTION--Hace Rollback si alguna transacción falla
+			If @@trancount > 0
+				ROLLBACK TRANSACTION--Hace Rollback si alguna transacción falla
 			RAISERROR('No se puede completar la transacción', 16, 1)
 		END CATCH
 END
